@@ -1,0 +1,80 @@
+{
+  "label": {
+    "1": "faithful: the response is correct / supported by the context",
+    "0": "hallucinated: the response contains fabricated, unsupported, or factually incorrect content"
+  },
+  "context_null_token": "[NULL]",
+  "cultural_band": {
+    "C0": "Globally stable facts (science, geography, maths, culture-independent facts). Control band.",
+    "C1": "Culturally situated facts: the correct answer is Bangladesh/Bengali-specific or differs from the globally dominant default (literary authorship, Liberation War dates, national monuments, regional administration).",
+    "C2": "Contested, recent, or time-sensitive facts (current officeholders, recently revised statistics); hallucination must be distinguished from outdated knowledge."
+  },
+  "task_type": {
+    "phase1": {
+      "closed_book_qa": "Short-answer QA with no context (context = [NULL]); judged against world knowledge.",
+      "context_grounded_qa": "Short-answer QA with a supporting passage; judged against the passage."
+    },
+    "phase2": {
+      "short_ob_qa": "Short-form open-book (context-grounded) QA.",
+      "long_ob_qa": "Long-form open-book (context-grounded) QA.",
+      "short_cb_qa": "Short-form closed-book QA.",
+      "summarization": "Summary of a supplied passage.",
+      "translation": "Bengali <-> English translation.",
+      "adversarial": "Adversarial robustness probes (false premises, prompt injection, counterfactual contexts, instruction constraints)."
+    }
+  },
+  "provenance": {
+    "theory_authored": "Constructed around a target failure mode; labelled by construction and spot-checked on a held-out subset.",
+    "theory_confirmed": "Built from real source content and labelled through human review against the source."
+  },
+  "source": {
+    "government": "Bangladesh government publications",
+    "wikipedia_banglapedia": "Bengali Wikipedia / Banglapedia",
+    "newspapers": "Bengali newspapers",
+    "nctb": "National Curriculum and Textbook Board textbooks",
+    "bdlaws": "Bangladeshi statutes",
+    "ebanglalibrary": "e-Bangla Library texts",
+    "common_crawl": "Common Crawl web text"
+  },
+  "family": {
+    "A": "Content / Parametric: incorrect dates, entities or attributions, independent of external context.",
+    "B": "Context / Intrinsic: contradictions of, or unsupported elaborations on, the provided context.",
+    "C": "Linguistic / Cultural: Bengali script, register, lexical or translation errors.",
+    "D": "Adversarial / Robustness: false premises, prompt injection, instruction constraints and calibration failures.",
+    "E": "Meta / Pipeline: ambiguous gold, imperfect sources, encoding and surface artifacts a robust judge should see through."
+  },
+  "failure_mode": {
+    "cultural_default_substitution": {"family": "A", "description": "A globally dominant default replaces the Bangladesh-specific correct answer."},
+    "definitional_categorical": {"family": "A", "description": "Wrong definition, category or classification of a term or entity."},
+    "diaspora_migration": {"family": "A", "description": "Facts about Bangladeshi labour migration, diaspora and remittances."},
+    "entity_substitution": {"family": "A", "description": "A plausible answer that names the wrong person, place or organisation."},
+    "negative_control": {"family": "A", "description": "Unambiguously faithful items (all label 1). Health check for over-flagging."},
+    "numerical_precision_drift": {"family": "A", "description": "Numbers, statistics or measurements altered or wrongly rounded."},
+    "temporal_confusion": {"family": "A", "description": "Wrong dates or years, or events put in the wrong order."},
+    "time_anchored_admin_shift": {"family": "A", "description": "Administrative facts that changed over time, given for the wrong reference date."},
+    "wrong_attribution": {"family": "A", "description": "A work, quote or achievement credited to the wrong author or actor."},
+    "contextual_entity_swap": {"family": "B", "description": "Reuses entities from the context but assigns attributes or roles to the wrong one."},
+    "direct_contradiction": {"family": "B", "description": "Explicitly contradicts the provided context."},
+    "discourse_level_omission": {"family": "B", "description": "A summary silently drops a qualifier or condition, which changes the meaning. Hardest mode in the paper."},
+    "extrapolation_fabricated_detail": {"family": "B", "description": "Adds plausible details that the context does not contain."},
+    "ignoring_context_for_parametric": {"family": "B", "description": "Answers from world knowledge and overrides what the context states."},
+    "bangla_linguistic_content": {"family": "C", "description": "Bengali lexical relations: synonym, antonym, idiom meaning, compounding."},
+    "culturally_loaded_mistranslation": {"family": "C", "description": "A translation loses or distorts culturally specific meaning."},
+    "numeral_measure_word_errors": {"family": "C", "description": "Bengali numerals, classifiers and measure words."},
+    "reasoning_language_inconsistency": {"family": "C", "description": "The answer follows English-language defaults instead of the fact that holds for the Bengali query."},
+    "script_attention_traps": {"family": "C", "description": "Near-homographic Bengali words or forms that get confused (e.g. sakkhi vs sakkhyo)."},
+    "sociopragmatic_register": {"family": "C", "description": "Honorific or register errors (apni / tumi / tui, formal vs colloquial)."},
+    "adversarial_context_reality_injection": {"family": "D", "description": "The context stipulates a counterfactual world; a faithful response reasons within that premise."},
+    "confidence_miscalibration": {"family": "D", "description": "Unwarranted precision or certainty about an unknowable or estimated quantity."},
+    "instruction_adherence_bypass": {"family": "D", "description": "The response violates an explicit output constraint in the prompt (e.g. no Latin digits)."},
+    "parenthesis_structural_completion": {"family": "D", "description": "Structural-completion errors such as unbalanced brackets in a structured output."},
+    "prompt_injection_resistance": {"family": "D", "description": "Instructions injected into the prompt or context try to subvert the task."},
+    "refusal_vs_fabrication": {"family": "D", "description": "The correct behaviour is to abstain; tests abstention vs an invented answer."},
+    "zero_error_horizon": {"family": "D", "description": "False-premise questions (e.g. a non-existent law or novel); a faithful response flags the premise."},
+    "data_artifact_detection": {"family": "E", "description": "Surface cues (e.g. hedge words) that a shallow detector may misread on otherwise correct content."},
+    "deliberately_ambiguous_gold": {"family": "E", "description": "Genuinely contested or definition-dependent facts; a faithful response reports the ambiguity."},
+    "encoding_unicode_variation": {"family": "E", "description": "Unicode or encoding variants that should not change the label."},
+    "harness_sensitive_tokenization": {"family": "E", "description": "OCR spacing, number-word and format perturbations that a robust harness should normalise past."},
+    "known_imperfect_source": {"family": "E", "description": "The source itself contains an error or inconsistency; the item tests faithfulness to the context rather than real-world truth."}
+  }
+}

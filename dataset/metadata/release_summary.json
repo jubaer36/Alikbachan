@@ -1,0 +1,31 @@
+{
+  "public_fraction": 0.3,
+  "phase1": {
+    "test": {
+      "n": 2516,
+      "label_1": 1335,
+      "closed_book": 1155,
+      "exact_duplicate_items": 0
+    },
+    "sample": {
+      "n": 299,
+      "label_1": 163,
+      "overlaps_test": 5
+    }
+  },
+  "phase2": {
+    "full": {
+      "n": 5000,
+      "label_1": 2283
+    },
+    "public": {
+      "n": 1500,
+      "label_1": 698
+    },
+    "private": {
+      "n": 3500,
+      "label_1": 1585
+    },
+    "max_abs_dev_from_30pct_any_failure_mode": 4.0
+  }
+}
